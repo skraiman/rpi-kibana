@@ -1,7 +1,8 @@
 FROM resin/rpi-raspbian:jessie
 
 # add our user and group first to make sure their IDs get assigned consistently
-RUN groupadd -r kibana && useradd -r -m -g kibana kibana
+RUN groupadd -r kibana
+RUN useradd -r -m -g kibana kibana
 
 RUN apt-get update && apt-get install -y \
 		ca-certificates \
