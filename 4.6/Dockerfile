@@ -36,6 +36,8 @@ RUN set -x \
     && mv /tmp/kibana-$KIBANA_VERSION-linux-x86_64 /opt \
     && rm kibana-$KIBANA_VERSION-linux-x86_64.tar.gz \
     && ln -s /opt/kibana-$KIBANA_VERSION-linux-x86_64 /opt/kibana \
+    && chown -R kibana:kibana /opt/kibana \
+    && chmod o+w /opt/kibana/optimize/.babelcache.json \
     && sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://elasticsearch:9200'!" /opt/kibana/config/kibana.yml \
     && grep -q 'elasticsearch:9200' /opt/kibana/config/kibana.yml
 
@@ -49,6 +51,7 @@ RUN set -x \
 ENV PATH /opt/kibana/bin:$PATH
 
 COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 5601
 ENTRYPOINT ["/docker-entrypoint.sh"]
