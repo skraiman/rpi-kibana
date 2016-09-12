@@ -6,7 +6,7 @@ RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 RUN apt-get update && apt-get install -y \
         ca-certificates \
         wget \
-    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+    --no-install-recommends
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
